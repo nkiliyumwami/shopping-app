@@ -4,6 +4,9 @@ body {
   padding: 0;
   font-family: "Rubik", sans-serif;
   background-color: #eef0f4;
+  color: #432000;
+  user-select: none;
+  background-color: ;
 }
 
 .container {
@@ -35,8 +38,13 @@ button {
   font-family: "Rubik", sans-serif;
   text-align: center;
 }
+
+button:hover {
+  background-color: #432000;
+  cursor: pointer;
+}
 img {
-  width: 150px;
+  width: 250px;
   margin: 30px auto;
 }
 
@@ -50,12 +58,50 @@ ul {
 
 ul li {
   font-size: 20px;
-  background-color: #fffdf8;
+  /* background-color: #fffdf8; */
   padding: 15px;
   border-radius: 8px;
   flex-grow: 1;
   text-align: center;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2); */
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  background-color: antiquewhite;
+}
+
+ul li:hover {
+  background-color: #908c83;
+  cursor: pointer;
+  color: aliceblue;
+}
+
+/* Media Queries */
+
+/* styles for desktop devices */
+@media only screen and (min-width: 992px) {
+  body {
+    font-size: 16px;
+    width: 80%;
+    margin: auto;
+  }
+}
+
+/* styles for tablet devices */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  body {
+    font-size: 14px;
+    width: 90%;
+    margin: auto;
+  }
+}
+
+/* styles for mobile devices */
+@media only screen and (max-width: 767px) {
+  body {
+    font-size: 12px;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 /* --- PlayGround--- */

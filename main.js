@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, onValue } from "firebase/database";
+import { getDatabase, ref, push, onValue, remove } from "firebase/database";
 
 const appSettings = {
   databaseURL: "https://shopping-c73ef-default-rtdb.firebaseio.com/",
@@ -22,27 +22,39 @@ addButtonEl.addEventListener("click", function () {
 });
 
 onValue(shoppingListInDB, function (snapshot) {
-  let dbSnapshot = snapshot.val();
-  let itemsArray = Object.entries(dbSnapshot);
-  clearShoppingListEl();
-  itemsArray.forEach((currentItem) => {
-    let currentItemId = currentItem[0];
-    let currentItemValue = currentItem[1];
-    addList(currentItem);
-  });
+  //Check if there are items in snapshot.. then iterate
+  if (snapshot.exists()) {
+    let dbSnapshot = snapshot.val();
+    let itemsArray = Object.entries(dbSnapshot);
+    clearShoppingListEl();
+    itemsArray.forEach((currentItem) => {
+      let currentItemId = currentItem[0];
+      let currentItemValue = currentItem[1];
+      addItemToShoppingList(currentItem);
+    });
+  } else {
+    shoppingListEl.innerHTML = "No items here ... yet!";
+  }
 });
 
 const formReset = () => {
   inputFieldEl.value = "";
 };
 
-const addList = (item) => {
+const addItemToShoppingList = (item) => {
   let itemID = item[0];
   let itemValue = item[1];
   let newEl = document.createElement("li");
   newEl.textContent = itemValue;
+
+  //delete an item by clicling on it
+  newEl.addEventListener("click", function () {
+    //get the location of id of element you want to delete
+    let exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`);
+    //remove the item by it ID
+    remove(exactLocationOfItemInDB);
+  });
   shoppingListEl.append(newEl);
-  // shoppingListEl.innerHTML += `<li>${itemValue}</li>`;
 };
 
 const clearShoppingListEl = () => {
